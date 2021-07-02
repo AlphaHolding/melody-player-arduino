@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <memory>
+#include <vector>
 
 /**
  * A note and the relative duration. 
