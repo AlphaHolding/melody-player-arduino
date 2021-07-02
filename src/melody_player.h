@@ -2,6 +2,7 @@
 #define MELODY_PLAYER_H
 
 #include "melody.h"
+#include <vector>
 #include <Ticker.h>
 #include <memory>
 
