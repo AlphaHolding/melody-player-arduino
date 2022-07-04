@@ -21,6 +21,7 @@
 #define MELODY_PLAYER_H
 
 #include "melody.h"
+#include <vector>
 #include <Ticker.h>
 #include <memory>
 
@@ -73,12 +74,17 @@ public:
    */
   void pause();
 
-  /**
-   * Tell if playing.
-   */
-  bool isPlaying() const {
-    return state == State::PLAY;
-  }
+    /**
+     * Set the volume of the melody is played.
+     */
+     void setVolume(unsigned char volume);
+
+    /**
+     * Tell if the melody is played.
+     */
+    bool isPlaying() const{
+        return state == State::PLAY;
+    }
 
   /**
    * Move the current melody and player's state to the given destination Player.
@@ -95,7 +101,8 @@ public:
   void duplicateMelodyTo(MelodyPlayer& destination);
 
 private:
-  unsigned char pin;
+	unsigned char pin;
+	unsigned char volume = 125;
 
 #ifdef ESP32
   unsigned char pwmChannel;

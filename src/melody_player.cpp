@@ -48,6 +48,7 @@ void MelodyPlayer::play() {
     } else {
 #ifdef ESP32
       ledcWriteTone(pwmChannel, computedNote.frequency);
+      ledcWrite(pwmChannel, volume);
 #else
       tone(pin, computedNote.frequency);
 #endif
@@ -100,6 +101,7 @@ void changeTone(MelodyPlayer* player) {
     } else {
 #ifdef ESP32
       ledcWriteTone(player->pwmChannel, computedNote.frequency);
+      ledcWrite(player->pwmChannel, player->volume);
 #else
       tone(player->pin, computedNote.frequency);
 #endif
@@ -155,6 +157,11 @@ void MelodyPlayer::pause() {
 void MelodyPlayer::transferMelodyTo(MelodyPlayer& destPlayer) {
   if (melodyState == nullptr) { return; }
 
+void MelodyPlayer::setVolume(unsigned char volume)
+{
+  this->volume = volume;
+}
+
   destPlayer.stop();
 
   bool playing = isPlaying();
@@ -190,12 +197,14 @@ MelodyPlayer::MelodyPlayer(unsigned char pin, unsigned char pwmChannel, bool off
   : pin(pin), pwmChannel(pwmChannel), offLevel(offLevel), state(State::STOP), melodyState(nullptr) {
   pinMode(pin, OUTPUT);
   digitalWrite(pin, offLevel);
+  volume = 125;
 };
 #else
 MelodyPlayer::MelodyPlayer(unsigned char pin, bool offLevel)
   : pin(pin), offLevel(offLevel), state(State::STOP), melodyState(nullptr) {
   pinMode(pin, OUTPUT);
   digitalWrite(pin, offLevel);
+  volume = 125;
 };
 #endif
 
@@ -211,7 +220,7 @@ void MelodyPlayer::turnOn() {
   // 2000 is a frequency, it will be changed at the first play
   ledcSetup(pwmChannel, 2000, resolution);
   ledcAttachPin(pin, pwmChannel);
-  ledcWrite(pwmChannel, 125);
+  ledcWrite(pwmChannel, volume);
 #endif
 }
 
