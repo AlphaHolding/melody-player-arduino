@@ -154,13 +154,12 @@ void MelodyPlayer::pause() {
   melodyState->saveRemainingNoteDuration(supportSemiNote);
 }
 
-void MelodyPlayer::transferMelodyTo(MelodyPlayer& destPlayer) {
-  if (melodyState == nullptr) { return; }
-
-void MelodyPlayer::setVolume(unsigned char volume)
-{
+void MelodyPlayer::setVolume(unsigned char volume) {
   this->volume = volume;
 }
+
+void MelodyPlayer::transferMelodyTo(MelodyPlayer& destPlayer) {
+  if (melodyState == nullptr) { return; }
 
   destPlayer.stop();
 

@@ -74,17 +74,17 @@ public:
    */
   void pause();
 
-    /**
-     * Set the volume of the melody is played.
-     */
-     void setVolume(unsigned char volume);
+  /**
+   * Set the volume of the melody is played.
+   */
+  void setVolume(unsigned char volume);
 
-    /**
-     * Tell if the melody is played.
-     */
-    bool isPlaying() const{
-        return state == State::PLAY;
-    }
+  /**
+   * Tell if the melody is played.
+   */
+  bool isPlaying() const {
+    return state == State::PLAY;
+  }
 
   /**
    * Move the current melody and player's state to the given destination Player.
@@ -101,8 +101,8 @@ public:
   void duplicateMelodyTo(MelodyPlayer& destination);
 
 private:
-	unsigned char pin;
-	unsigned char volume = 125;
+  unsigned char pin;
+  unsigned char volume = 125;
 
 #ifdef ESP32
   unsigned char pwmChannel;
